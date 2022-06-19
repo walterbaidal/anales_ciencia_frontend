@@ -1,0 +1,15 @@
+#authbar {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	margin: 16px 0;
+}
+
+#authbar input {
+	margin-right: 16px;
+}
+
+#authbar input:last-child {
+	margin-right: 0;
+}

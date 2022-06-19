@@ -1,0 +1,9 @@
+#home .content {
+	display: flex;
+	width: 100%;
+}
+
+#home .content .column {
+	width: 33%;
+	border: 1px solid #000
+}
