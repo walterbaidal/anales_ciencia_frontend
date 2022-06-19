@@ -7,21 +7,26 @@ import "./index.styles.css";
 
 export const HomeLayout = ({ setUser, user, products, persons, entities }) => {
   const navigate = useNavigate();
-  const goProduct = useCallback(
-    (id) => navigate(`/product/${id}`, { replace: true }),
+  const redirect = useCallback(
+    (ruta, id) => navigate(`/${ruta}/${id}`, { replace: true }),
     [navigate]
   );
 
   const listProducts = products?.map((product) => (
-    <ListGroup.Item action onClick={goProduct(product.id)}>
+    <ListGroup.Item action onClick={() => redirect("products", product.id)}>
       {product.name}
     </ListGroup.Item>
   ));
+
   const listPersons = persons?.map((person) => (
-    <ListGroup.Item>{person.name}</ListGroup.Item>
+    <ListGroup.Item action onClick={() => redirect("people", person.id)}>
+      {person.name}
+    </ListGroup.Item>
   ));
   const listEntities = entities?.map((entity) => (
-    <ListGroup.Item>{entity.name}</ListGroup.Item>
+    <ListGroup.Item action onClick={() => redirect("entities", entity.id)}>
+      {entity.name}
+    </ListGroup.Item>
   ));
 
   return (

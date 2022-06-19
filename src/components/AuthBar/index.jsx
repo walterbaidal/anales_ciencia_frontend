@@ -46,7 +46,8 @@ export const AuthBar = ({ setUser, user }) => {
     </Col>
   ) : (
     <div>
-      <button onClick={setUser({})}>a</button>
+      <button>a</button>
+      {/* onClick={setUser({})} */}
     </div>
   );
 };

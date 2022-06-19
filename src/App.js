@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { HomeLayout } from "./layouts/HomeLayout/index.jsx";
+import { ViewLayout } from "./layouts/ViewLayout/index.jsx";
 import { Container } from "react-bootstrap";
 import "./App.css";
 
@@ -33,7 +34,7 @@ function App() {
   }, []);
 
   return (
-    <Container fluid="md">
+    <Container>
       <Routes>
         <Route
           path="/"
@@ -47,6 +48,9 @@ function App() {
             />
           }
         />
+        <Route path="products/:id" element={<ViewLayout />} />
+        <Route path="people/:id" element={<ViewLayout />} />
+        <Route path="entities/:id" element={<ViewLayout />} />
       </Routes>
     </Container>
   );
