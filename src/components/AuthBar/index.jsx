@@ -1,4 +1,4 @@
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button, Row, Col, Nav } from "react-bootstrap";
 import "./index.styles.css";
 
 export const AuthBar = ({ setUser, user }) => {
@@ -45,9 +45,18 @@ export const AuthBar = ({ setUser, user }) => {
       </Row>
     </Col>
   ) : (
-    <div>
-      <button>a</button>
-      {/* onClick={setUser({})} */}
-    </div>
+    <>
+      <Nav className="justify-content-end">
+        <Nav.Item>
+          <Button variant="success" href="/admin">
+            Admin
+          </Button>
+          {/* onClick={setUser({})} */}
+        </Nav.Item>{" "}
+        <Nav.Item>
+          <Button variant="danger">Logout</Button>
+        </Nav.Item>
+      </Nav>
+    </>
   );
 };

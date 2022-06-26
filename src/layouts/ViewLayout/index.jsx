@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
+import { TopBar } from "../../components/TopBar";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Row, Col, Card, Ratio } from "react-bootstrap";
+import { Breadcrumbs, Typography } from "@mui/material";
+import React from "react";
 
 export const ViewLayout = () => {
   let location = useLocation();
@@ -21,7 +24,14 @@ export const ViewLayout = () => {
 
   return (
     <>
-      <Link to="/">Home</Link>
+      <TopBar />
+      <Breadcrumbs aria-label="breadcrumb">
+        <Link underline="hover" color="inherit" to="/">
+          Home
+        </Link>
+        <Typography color="text.primary">{data.name}</Typography>
+      </Breadcrumbs>
+
       <Row>
         <Col sm={5}>
           <Card style={{ width: "18rem" }}>
@@ -34,7 +44,11 @@ export const ViewLayout = () => {
         </Col>
         <Col sm={7}>
           <Ratio aspectRatio="16x9">
-            <iframe src={data.wikiUrl} frameborder="0"></iframe>
+            <iframe
+              title="{data.name}"
+              src={data.wikiUrl}
+              frameBorder="0"
+            ></iframe>
           </Ratio>
         </Col>
       </Row>

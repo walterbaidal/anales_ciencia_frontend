@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { HomeLayout } from "./layouts/HomeLayout/index.jsx";
 import { ViewLayout } from "./layouts/ViewLayout/index.jsx";
+import { AdminLayout } from "./layouts/AdminLayout/index.jsx";
 import { Container } from "react-bootstrap";
+import React from "react";
 import "./App.css";
 
 function App() {
@@ -51,6 +53,16 @@ function App() {
         <Route path="products/:id" element={<ViewLayout />} />
         <Route path="people/:id" element={<ViewLayout />} />
         <Route path="entities/:id" element={<ViewLayout />} />
+        <Route
+          path="admin"
+          element={
+            <AdminLayout
+              products={products}
+              persons={persons}
+              entities={entities}
+            />
+          }
+        />
       </Routes>
     </Container>
   );
