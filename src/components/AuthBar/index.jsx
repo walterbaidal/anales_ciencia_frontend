@@ -1,26 +1,43 @@
+import Cookies from "js-cookie";
 import { Form, Button, Row, Col, Nav } from "react-bootstrap";
+import { getUserByUsername } from "../../services/getUserByUsername";
 import "./index.styles.css";
 
-export const AuthBar = ({ setUser, user }) => {
+export const AuthBar = ({
+  setUser,
+  user,
+  isLoggedIn,
+  setIsLoggedIn,
+  role,
+  setRole,
+}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await fetch(
-      `http://localhost:8080/api/users/${e.target[0].value}.json`
-    );
-    const { username, password, role } = await response.json();
+    const usuario = await getUserByUsername(e.target[0].value);
 
-    console.log(password, e.target[1].value);
-
-    if (password !== e.target[1].value) {
-      alert("Password no válido");
+    if (usuario.role === 0 || usuario.password !== e.target[1].value) {
+      alert("Contraseña incorrecta o usuario no activo");
       return;
+    } else {
+      Cookies.set("isLoggedIn", true);
+      Cookies.set("user", usuario.username);
+      Cookies.set("role", usuario.role);
+      setIsLoggedIn(true);
+      setUser(usuario.username);
+      setRole(usuario.role);
     }
-
-    setUser({ username, password, role });
   };
 
-  return !user ? (
+  const renderAdminButton = (
+    <Nav.Item>
+      <Button variant="success" href="/admin">
+        Admin
+      </Button>
+    </Nav.Item>
+  );
+
+  return !isLoggedIn ? (
     <Col id="authbar">
       <Row>
         <Form className="d-flex" onSubmit={handleSubmit}>
@@ -48,13 +65,24 @@ export const AuthBar = ({ setUser, user }) => {
     <>
       <Nav className="justify-content-end">
         <Nav.Item>
-          <Button variant="success" href="/admin">
-            Admin
+          <Button variant="info" href="/admin">
+            {user}
           </Button>
-          {/* onClick={setUser({})} */}
         </Nav.Item>{" "}
+        {isLoggedIn && Cookies.get("role") === "2" ? renderAdminButton : null}
         <Nav.Item>
-          <Button variant="danger">Logout</Button>
+          <Button
+            onClick={() => {
+              setIsLoggedIn(false);
+              setUser();
+              Cookies.remove("isLoggedIn");
+              Cookies.remove("role");
+              Cookies.remove("user");
+            }}
+            variant="danger"
+          >
+            Logout
+          </Button>
         </Nav.Item>
       </Nav>
     </>
