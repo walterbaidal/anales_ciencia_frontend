@@ -102,7 +102,7 @@ export const ProfileCard = ({ me }) => {
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
+                <Form.Label>Correo</Form.Label>
                 <Form.Control
                   type="email"
                   placeholder="Email"
@@ -111,11 +111,11 @@ export const ProfileCard = ({ me }) => {
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
+                <Form.Label>Contraseña</Form.Label>
                 <Form.Control type="password" defaultValue={me.password} />
               </Form.Group>
               <Button variant="primary" type="submit">
-                Submit
+                Actualizar
               </Button>
             </Form>
           </Col>
