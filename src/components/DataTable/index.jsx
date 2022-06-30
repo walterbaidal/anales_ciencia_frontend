@@ -3,7 +3,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Box, Fab, Modal } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import { Button, Form } from "react-bootstrap";
-import { putUser } from "../../services/putUser";
+import { patchUser } from "../../services/patchUser";
 import { deleteUser } from "../../services/deleteUser";
 import { getUserById } from "../../services/getUserById";
 import { EditElementButton } from "../EditElementButton";
@@ -87,7 +87,7 @@ export const DataTable = ({
       role: parseInt(e.target[3].value),
     };
 
-    const usuario = await putUser(userLoaded.id, putData);
+    const usuario = await patchUser(userLoaded.id, putData);
     console.log(usuario);
 
     handleClose();

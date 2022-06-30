@@ -3,8 +3,9 @@ import { TopBar } from "../../components/TopBar";
 import { Breadcrumbs, Typography } from "@mui/material";
 import React from "react";
 import Cookies from "js-cookie";
+import { ProfileCard } from "../../components/ProfileCard";
 
-export const MeLayout = () => {
+export const MeLayout = ({ me }) => {
   return Cookies.get("user") ? (
     <>
       <TopBar />
@@ -16,6 +17,7 @@ export const MeLayout = () => {
           Perfil
         </Typography>
       </Breadcrumbs>
+      <ProfileCard me={me} />
     </>
   ) : (
     <Navigate to="/" />

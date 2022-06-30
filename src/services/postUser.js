@@ -5,10 +5,13 @@ export const postUser = async (postData) => {
     body: JSON.stringify(postData),
   };
 
-  const response = await fetch(
-    `http://localhost:8080/api/users`,
-    requestOptions
-  );
+  let response = {};
+
+  try {
+    response = await fetch(`http://localhost:8080/api/users`, requestOptions);
+  } catch (e) {
+    return e;
+  }
 
   const usuario = await response.json();
   return usuario;

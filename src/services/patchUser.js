@@ -1,7 +1,9 @@
-export const putUser = async (id, postData) => {
+export const patchUser = async (id, postData) => {
   const requestOptions = {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/merge-patch+json",
+    },
     body: JSON.stringify(postData),
   };
 

@@ -1,6 +1,7 @@
 import Cookies from "js-cookie";
 import { Form, Button, Row, Col, Nav } from "react-bootstrap";
 import { getUserByUsername } from "../../services/getUserByUsername";
+import { RegisterButton } from "../RegisterButton";
 import "./index.styles.css";
 
 export const AuthBar = ({
@@ -11,7 +12,7 @@ export const AuthBar = ({
   role,
   setRole,
 }) => {
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     const usuario = await getUserByUsername(e.target[0].value);
@@ -38,27 +39,37 @@ export const AuthBar = ({
   );
 
   return !isLoggedIn ? (
-    <Col id="authbar">
+    <Col>
       <Row>
-        <Form className="d-flex" onSubmit={handleSubmit}>
-          <Form.Group className="me-3" controlId="username">
-            <Form.Label>Username</Form.Label>
-            <Form.Control type="text" placeholder="Username" name="username" />
-          </Form.Group>
+        <div id="authbar">
+          <Form className="d-flex" onSubmit={handleLogin}>
+            <Form.Group className="me-3" controlId="username">
+              <Form.Label>Username</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Username"
+                name="username"
+              />
+            </Form.Group>
 
-          <Form.Group className="me-3" controlId="password">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Password"
-              name="password"
-            />
-          </Form.Group>
+            <Form.Group className="me-3" controlId="password">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                name="password"
+              />
+            </Form.Group>
 
-          <Button variant="primary" type="submit">
-            Login
-          </Button>
-        </Form>
+            <Button variant="primary" type="submit">
+              Login
+            </Button>
+          </Form>
+        </div>
+      </Row>
+
+      <Row>
+        <RegisterButton />
       </Row>
     </Col>
   ) : (

@@ -19,6 +19,7 @@ function App() {
   const [users, setUsers] = useState();
   const [isLoggedIn, setIsLoggedIn] = useState();
   const [role, setRole] = useState();
+  const [me, setMe] = useState();
 
   useEffect(() => {
     Cookies.get("isLoggedIn")
@@ -50,10 +51,19 @@ function App() {
       setUsers(usuarios);
     };
 
+    const getMe = async () => {
+      const response = await fetch(
+        `http://localhost:8080/api/users.json?username=${Cookies.get("user")}`
+      );
+      const profile = await response.json();
+      setMe(profile[0]);
+    };
+
     getProducts();
     getPersons();
     getEntities();
     getUsers();
+    getMe();
   }, []);
 
   const navigate = useNavigate();
@@ -132,7 +142,7 @@ function App() {
             />
           }
         />
-        <Route path="me" element={<MeLayout />} />
+        <Route path="me" element={<MeLayout me={me} />} />
       </Routes>
     </Container>
   );
