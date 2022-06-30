@@ -22,7 +22,7 @@ export default function MultipleSelect({
           aria-label="Default select example"
           onChange={handleChange}
           defaultValue={
-            print_element ? selectedValues.map((value) => value.id) : " "
+            print_element ? selectedValues.map((value) => value.id) : "[]"
           }
         >
           {elements.map((element) => (

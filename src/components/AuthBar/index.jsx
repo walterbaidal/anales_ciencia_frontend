@@ -65,8 +65,8 @@ export const AuthBar = ({
     <>
       <Nav className="justify-content-end">
         <Nav.Item>
-          <Button variant="info" href="/admin">
-            {user}
+          <Button variant="info" href="/me">
+            Perfil
           </Button>
         </Nav.Item>{" "}
         {isLoggedIn && Cookies.get("role") === "2" ? renderAdminButton : null}

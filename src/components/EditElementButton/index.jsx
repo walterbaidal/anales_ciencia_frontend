@@ -1,13 +1,14 @@
-import AddIcon from "@mui/icons-material/Add";
+import EditIcon from "@mui/icons-material/Edit";
 import Fab from "@mui/material/Fab";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import { postElement } from "../../services/postElement";
 import MultipleSelect from "../MultipleSelect";
 import SingleSelect from "../SingleSelect";
 import { getElementById } from "../../services/getElementById";
+import { putElement } from "../../services/putElement";
+import { deleteElement } from "../../services/deleteElement";
 
 const style = {
   position: "absolute",
@@ -30,10 +31,15 @@ export const EditElementButton = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [endpoint, setEndpoint] = useState();
-  const [elementLoaded, setElementLoaded] = useState();
+  const [elementLoaded, setElementLoaded] = useState({});
   const [selectedEntities, setSelectedEntities] = useState([]);
   const [selectedPersons, setSelectedPersons] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
+
+  const [entitiesFromElement, setEntitiesFromElement] = useState();
+  const [entityFromElement, setEntitiyFromElement] = useState();
+  const [personsFromElement, setPersonsFromElement] = useState();
+  const [productsFromElement, setProductsFromElement] = useState();
 
   useEffect(() => {
     if (selected_tab === "Producto") {
@@ -46,20 +52,22 @@ export const EditElementButton = ({
   }, [selected_tab]);
 
   const handleOpen = async () => {
+    console.log("Endpoint: " + endpoint + "/" + element_id);
     const edit_element = await getElementById(endpoint, element_id);
-    setElementLoaded(edit_element);
+    console.log(edit_element);
+    await setElementLoaded(edit_element);
 
-    if (elementLoaded.products !== undefined) {
-      setSelectedProducts(elementLoaded.products);
-    } else if (elementLoaded.entities !== undefined) {
-      setSelectedEntities(elementLoaded.entities);
-    } else if (elementLoaded.persons !== undefined) {
-      setSelectedPersons(elementLoaded.persons);
-    } else if (elementLoaded.entity !== undefined) {
-      setSelectedEntities(elementLoaded.entity);
+    if (selected_tab === "Producto") {
+      setEntitiesFromElement(edit_element.entities.map((entity) => entity));
+      setPersonsFromElement(edit_element.persons.map((person) => person));
+    } else if (selected_tab === "Entidad") {
+      setProductsFromElement(edit_element.products.map((product) => product));
+      setPersonsFromElement(edit_element.persons.map((person) => person));
+    } else if (selected_tab === "Persona") {
+      setProductsFromElement(edit_element.products.map((product) => product));
+      setEntitiyFromElement(edit_element.entity);
     }
-    console.log(elementLoaded.persons);
-    console.log(selectedPersons);
+
     setOpen(true);
   };
 
@@ -138,10 +146,19 @@ export const EditElementButton = ({
       };
     }
 
+    console.log("Datos a postear:");
     console.log(postData);
+    console.log("En endpoint: " + endpoint + "/" + elementLoaded.id);
 
-    await postElement(endpoint, postData);
+    await putElement(endpoint, elementLoaded.id, postData);
 
+    handleClose();
+  };
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
+
+    await deleteElement(endpoint, elementLoaded.id);
     handleClose();
   };
 
@@ -150,10 +167,10 @@ export const EditElementButton = ({
       <Fab
         onClick={handleOpen}
         variant="extended"
-        color="primary"
-        aria-label="add"
+        color="secondary"
+        aria-label="edit"
       >
-        <AddIcon sx={{ mr: 1 }} />
+        <EditIcon sx={{ mr: 1 }} />
         Editar/Borrar {selected_tab}
       </Fab>
 
@@ -220,7 +237,7 @@ export const EditElementButton = ({
                   selected_tab,
                   entities,
                   "Entidades",
-                  selectedEntities,
+                  entitiesFromElement,
                   setSelectedEntities,
                   true
                 )
@@ -232,7 +249,7 @@ export const EditElementButton = ({
                   selected_tab,
                   persons,
                   "Personas",
-                  selectedPersons,
+                  personsFromElement,
                   setSelectedPersons,
                   true
                 )
@@ -244,7 +261,7 @@ export const EditElementButton = ({
                   selected_tab,
                   products,
                   "Productos",
-                  selectedProducts,
+                  productsFromElement,
                   setSelectedProducts,
                   true
                 )
@@ -255,7 +272,7 @@ export const EditElementButton = ({
                   selected_tab,
                   entities,
                   "Entidades",
-                  selectedEntities,
+                  entityFromElement,
                   setSelectedEntities,
                   true
                 )
@@ -263,6 +280,9 @@ export const EditElementButton = ({
 
             <Button variant="primary" type="submit">
               Editar {selected_tab}
+            </Button>
+            <Button onClick={handleDelete} variant="danger">
+              Borrar {selected_tab}
             </Button>
           </Form>
         </Box>

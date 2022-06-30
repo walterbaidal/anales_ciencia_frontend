@@ -5,13 +5,18 @@ export default function SingleSelect({
   selected_tab,
   elements,
   select_title,
+  selectedValues,
   setSelectedValues,
+  print_element,
 }) {
   return (
     <>
       <Form.Group className="me-3" controlId={select_title}>
         <Form.Label>{select_title}</Form.Label>
-        <Form.Select aria-label="Default example">
+        <Form.Select
+          defaultValue={print_element ? selectedValues.id : " "}
+          aria-label="Default example"
+        >
           {elements.map((element) => (
             <option key={element.id} value={element.id}>
               {element.name}

@@ -182,7 +182,9 @@ export const ButtonAddElement = ({
                   selected_tab,
                   entities,
                   "Entidades",
-                  setSelectedEntities
+                  [],
+                  setSelectedEntities,
+                  false
                 )
               : null}
 
@@ -191,7 +193,9 @@ export const ButtonAddElement = ({
                   selected_tab,
                   persons,
                   "Personas",
-                  setSelectedPersons
+                  [],
+                  setSelectedPersons,
+                  false
                 )
               : null}
 
@@ -200,7 +204,9 @@ export const ButtonAddElement = ({
                   selected_tab,
                   products,
                   "Productos",
-                  setSelectedProducts
+                  [],
+                  setSelectedProducts,
+                  false
                 )
               : null}
 
@@ -209,7 +215,9 @@ export const ButtonAddElement = ({
                   selected_tab,
                   entities,
                   "Entidades",
-                  setSelectedEntities
+                  [],
+                  setSelectedEntities,
+                  false
                 )
               : null}
 

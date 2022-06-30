@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { ListGroup } from "react-bootstrap";
 import "./App.css";
 import Cookies from "js-cookie";
+import { MeLayout } from "./layouts/MeLayout/index.jsx";
 
 function App() {
   const [user, setUser] = useState({});
@@ -131,6 +132,7 @@ function App() {
             />
           }
         />
+        <Route path="me" element={<MeLayout />} />
       </Routes>
     </Container>
   );
