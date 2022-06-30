@@ -91,6 +91,7 @@ export const DataTable = ({
     console.log(usuario);
 
     handleClose();
+    window.location.reload();
   };
 
   const handleDelete = async (e) => {
@@ -98,6 +99,7 @@ export const DataTable = ({
 
     await deleteUser(userLoaded.id);
     handleClose();
+    window.location.reload();
   };
 
   let renderEditElementButton = (

@@ -114,6 +114,7 @@ export const ButtonAddElement = ({
     await postElement(endpoint, postData);
 
     handleClose();
+    window.location.reload();
   };
 
   return (

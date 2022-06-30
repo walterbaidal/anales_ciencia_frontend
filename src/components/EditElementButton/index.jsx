@@ -153,6 +153,7 @@ export const EditElementButton = ({
     await putElement(endpoint, elementLoaded.id, postData);
 
     handleClose();
+    window.location.reload();
   };
 
   const handleDelete = async (e) => {
@@ -160,6 +161,7 @@ export const EditElementButton = ({
 
     await deleteElement(endpoint, elementLoaded.id);
     handleClose();
+    window.location.reload();
   };
 
   return (

@@ -37,6 +37,7 @@ export const ButtonAddUser = () => {
     console.log(usuario);
 
     handleClose();
+    window.location.reload();
   };
 
   return (
